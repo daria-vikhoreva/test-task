@@ -11,7 +11,7 @@
 <script>
 export default {
 	name: 'UiInput',
-	props: ['modelValue'],
+	props: ['modelValue', 'placeholder'],
 	methods: {
 		updateValue(event) {
 			this.$emit('input', event.target.value);

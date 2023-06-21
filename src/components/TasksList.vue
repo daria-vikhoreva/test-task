@@ -1,12 +1,13 @@
 <template>
 	<div class="tasks-list">
-		<h2>Список задач</h2>
+		<h2>Текущий список задач</h2>
 
 		<div class="tasks-wrapper">
 			<TaskCard
 				v-for="(card, index) in cards"
 				:key="index"
 				:card="card"
+				@deleteTask="deleteTask(card)"
 			/>
 		</div>
 	</div>
@@ -23,6 +24,11 @@ export default {
 	components: {
 		TaskCard,
 	},
+	methods: {
+		deleteTask(task) {
+			this.$store.dispatch('DELETE_TASK', task);
+		},
+	},
 };
 </script>
 
@@ -33,7 +39,6 @@ export default {
 	gap: 15px;
 	width: 80%;
 }
-
 .tasks-wrapper {
 	display: flex;
 	gap: 12px;

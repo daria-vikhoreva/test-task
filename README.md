@@ -1,14 +1,20 @@
-# test-task
+# Тестовое задание
 
-This template should help get you started developing with Vue 2/3 in Vite.
+## Технологии: Vue2 (Options API), Vuex3, vue-router, vuex-persistedstate, Vite, Prettier
 
-## Recommended IDE Setup
+## Текст задания:
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+Разработать простое приложение таск-менеджера с использованием Vue 2 (можно использовать composition API), включая работу с vuex и vue-router.
+Приложение должно иметь главную страницу (на главной странице переход на страницу со списком задач, по желанию можете дать волю своей фантазии) и страницу со списком задач
+На странице со списком задач должна быть форма создания задачи.
+Задачи можно удалить и отредактировать. При обновлении страницы должны отображаться сохранённые задачи.
 
-## Customize configuration
+## Что выполнено:
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+- Есть главная страница и страница со списком задач, на главной странице переход на страницу с задачами, использован vue-router;
+- На странице со списком задач есть форма создания задачи;
+- Для хранения списка задач и различных действий с ними (добавление, удаление, редактирование) используется Vuex;
+- При обновлении страницы отображаются сохраненные задачи, для этого была добавлена библиотека vuex-persistedstate;
 
 ## Project Setup
 

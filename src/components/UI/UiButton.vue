@@ -1,6 +1,7 @@
 <template>
 	<button
 		class="button"
+		:class="color"
 		@click="handleEvent"
 	>
 		{{ text }}
@@ -10,7 +11,7 @@
 <script>
 export default {
 	name: 'UiButton',
-	props: ['text'],
+	props: ['text', 'color'],
 	methods: {
 		handleEvent(event) {
 			this.$emit('click', event.target.value);
@@ -24,8 +25,19 @@ export default {
 	border-radius: 5px;
 	padding: 10px 16px;
 	width: max-content;
-	background-color: rgb(177, 177, 177);
+	font-size: 14px;
+	font-weight: 500;
 	border: none;
 	cursor: pointer;
+}
+
+.blue {
+	background-color: rgb(58, 71, 173);
+	color: #fff;
+}
+
+.red {
+	background-color: rgb(125, 40, 39);
+	color: #fff;
 }
 </style>

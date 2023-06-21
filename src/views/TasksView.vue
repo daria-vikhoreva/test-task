@@ -1,6 +1,6 @@
 <template>
 	<div class="tasks">
-		<h1>Страница со списком задач</h1>
+		<h1>Мои задачи</h1>
 		<div class="tasks__wrapper">
 			<CreateTaskForm />
 			<TasksList :cards="cards" />
@@ -18,10 +18,8 @@ export default {
 		CreateTaskForm,
 		TasksList,
 	},
-	data() {
-		return {
-			cards: this.$store.state.cards ? this.$store.state.cards : '',
-		};
+	computed: {
+		cards: (props) => props.$store.getters.getTasks,
 	},
 };
 </script>
