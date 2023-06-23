@@ -1,54 +1,52 @@
 <template>
 	<div class="card">
-		<div
-			class="card__wrapper"
-			v-if="isEdited"
-		>
-			<UiInput
-				placeholder="Заголовок задачи"
-				v-model="editedTitleValue"
-				class="card__input"
-			/>
-			<UiInput
-				placeholder="Описание задачи"
-				v-model="editedDescriptionValue"
-				class="card__input"
-			/>
+		<div class="card__wrapper">
+			<template v-if="isEdited">
+				<UiInput
+					placeholder="Заголовок задачи"
+					v-model="form.title"
+					class="card__input"
+				/>
 
-			<div class="card__buttons">
-				<UiButton
-					text="Сохранить"
-					color="blue"
-					@click="editTask(card)"
+				<UiInput
+					placeholder="Описание задачи"
+					v-model="form.description"
+					class="card__input"
 				/>
-				<UiButton
-					text="Отменить"
-					color="red"
-					@click="cancelEdit(card)"
-				/>
-			</div>
-		</div>
-		<div
-			v-else
-			class="card__wrapper"
-		>
-			<div class="card__title">{{ card.title }}</div>
-			<div class="card__descr">
-				{{ card.description }}
-			</div>
 
-			<div class="card__buttons">
-				<UiButton
-					text="Редактировать"
-					color="blue"
-					@click="openEditor()"
-				/>
-				<UiButton
-					text="Удалить"
-					color="red"
-					@click="deleteTask()"
-				/>
-			</div>
+				<div class="card__buttons">
+					<UiButton
+						text="Сохранить"
+						color="blue"
+						@click="handleEditTask(card)"
+					/>
+					<UiButton
+						text="Отменить"
+						color="red"
+						@click="cancelEdit(card)"
+					/>
+				</div>
+			</template>
+
+			<template v-else>
+				<div class="card__title">{{ card.title }}</div>
+				<div class="card__descr">
+					{{ card.description }}
+				</div>
+
+				<div class="card__buttons">
+					<UiButton
+						text="Редактировать"
+						color="blue"
+						@click="openEditor()"
+					/>
+					<UiButton
+						text="Удалить"
+						color="red"
+						@click="deleteTask()"
+					/>
+				</div>
+			</template>
 		</div>
 	</div>
 </template>
@@ -56,16 +54,24 @@
 <script>
 import UiButton from './UI/UiButton.vue';
 import UiInput from './UI/UiInput.vue';
+import { mapActions } from 'vuex';
 
 export default {
 	name: 'TaskCard',
-	props: ['card'],
+	props: {
+		card: {
+			type: Object,
+			required: true,
+		},
+	},
 	emits: ['deleteTask'],
 	data() {
 		return {
 			isEdited: false,
-			editedTitleValue: this.card.title,
-			editedDescriptionValue: this.card.description,
+			form: {
+				title: this.card.title,
+				description: this.card.description,
+			},
 		};
 	},
 	components: {
@@ -73,24 +79,22 @@ export default {
 		UiInput,
 	},
 	methods: {
-		editTask(card) {
-			if (this.editedTitleValue || this.editedDescriptionValue) {
-				const payload = {
+		handleEditTask(card) {
+			if (this.form.title || this.form.description) {
+				const editedTask = {
 					id: card.id,
-					newTitle: this.editedTitleValue,
-					newDescription: this.editedDescriptionValue,
+					title: this.form.title,
+					description: this.form.description,
 				};
-				this.$store.dispatch('EDIT_TASK', payload);
+				this.editTask(editedTask);
 				this.isEdited = false;
 			} else {
-				this.isEdited = false;
 				this.deleteTask();
 			}
 		},
 		cancelEdit() {
 			this.isEdited = false;
-			this.editedTitleValue = this.card.title;
-			this.editedDescriptionValue = this.card.description;
+			this.form = this.card;
 		},
 
 		openEditor() {
@@ -99,6 +103,8 @@ export default {
 		deleteTask() {
 			this.$emit('deleteTask');
 		},
+
+		...mapActions(['editTask']),
 	},
 };
 </script>

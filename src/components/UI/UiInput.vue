@@ -3,7 +3,7 @@
 		type="text"
 		class="input"
 		:placeholder="placeholder"
-		:value="modelValue"
+		:value="value"
 		@input="updateValue"
 	/>
 </template>
@@ -11,7 +11,16 @@
 <script>
 export default {
 	name: 'UiInput',
-	props: ['modelValue', 'placeholder'],
+	props: {
+		placeholder: {
+			type: String,
+			required: true,
+		},
+		value: {
+			type: String,
+			required: true,
+		},
+	},
 	methods: {
 		updateValue(event) {
 			this.$emit('input', event.target.value);

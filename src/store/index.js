@@ -18,19 +18,19 @@ const store = new Vuex.Store({
 		},
 		EDIT_ITEM: function (state, payload) {
 			const card = state.cards.find((task) => task.id === payload.id);
-			card.title = payload.newTitle;
-			card.description = payload.newDescription;
+			card.title = payload.title;
+			card.description = payload.description;
 		},
 	},
 	actions: {
-		ADD_TASK: function (context, payload) {
-			context.commit('ADD_ITEM', payload);
+		addTask: function ({ commit }, payload) {
+			commit('ADD_ITEM', payload);
 		},
-		DELETE_TASK: function (context, payload) {
-			context.commit('DELETE_ITEM', payload);
+		deleteTask: function ({ commit }, payload) {
+			commit('DELETE_ITEM', payload);
 		},
-		EDIT_TASK: function (context, payload) {
-			context.commit('EDIT_ITEM', payload);
+		editTask: function ({ commit }, payload) {
+			commit('EDIT_ITEM', payload);
 		},
 	},
 	getters: {

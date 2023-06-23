@@ -11,7 +11,16 @@
 <script>
 export default {
 	name: 'UiButton',
-	props: ['text', 'color'],
+	props: {
+		text: {
+			type: String,
+			required: true,
+		},
+		color: {
+			type: String,
+			required: true,
+		},
+	},
 	methods: {
 		handleEvent(event) {
 			this.$emit('click', event.target.value);

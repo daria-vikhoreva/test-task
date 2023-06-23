@@ -1,6 +1,5 @@
 <template>
 	<div class="form-wrapper">
-		<h2 class="form__header">Добавить новую задачу</h2>
 		<form
 			class="form"
 			@submit.prevent="createTask"
@@ -28,6 +27,8 @@
 <script>
 import { randomNumberExclude } from '../helpers/random';
 import UiInput from './UI/UiInput.vue';
+import { mapGetters, mapActions } from 'vuex';
+
 export default {
 	name: 'CreateTaskForm',
 	data() {
@@ -43,27 +44,30 @@ export default {
 		createTask: function () {
 			if (this.titleValue || this.descriptionValue) {
 				const card = {
-					id: randomNumberExclude(this.$store.getters.getIDs),
+					id: randomNumberExclude(this.IDs),
 					title: this.titleValue,
 					description: this.descriptionValue,
 				};
-				this.$store.dispatch('ADD_TASK', card);
+				this.addTask(card);
+				this.clearForm();
 			}
 		},
+		clearForm: function () {
+			this.titleValue = '';
+			this.descriptionValue = '';
+		},
+		...mapActions(['addTask']),
+	},
+	computed: {
+		...mapGetters({ IDs: 'getIDs' }),
 	},
 };
 </script>
 
 <style scoped>
 .form-wrapper {
-	width: 400px;
+	width: 320px;
 	height: max-content;
-	display: flex;
-	flex-direction: column;
-	gap: 12px;
-	padding: 12px 16px;
-	border-radius: 5px;
-	border: 2px solid grey;
 }
 .form {
 	display: flex;

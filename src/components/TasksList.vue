@@ -4,30 +4,35 @@
 
 		<div class="tasks-wrapper">
 			<TaskCard
-				v-for="(card, index) in cards"
-				:key="index"
+				v-for="card in cards"
+				:key="card.id"
 				:card="card"
-				@deleteTask="deleteTask(card)"
+				@deleteTask="handleDeleteTask(card)"
 			/>
 		</div>
 	</div>
 </template>
 
 <script>
+import { mapActions } from 'vuex';
+
 import TaskCard from './TaskCard.vue';
 export default {
 	name: 'TasksList',
-	props: ['cards'],
-	data() {
-		return {};
+	props: {
+		cards: {
+			type: Array,
+			required: true,
+		},
 	},
 	components: {
 		TaskCard,
 	},
 	methods: {
-		deleteTask(task) {
-			this.$store.dispatch('DELETE_TASK', task);
+		handleDeleteTask(task) {
+			this.deleteTask(task);
 		},
+		...mapActions(['deleteTask']),
 	},
 };
 </script>
