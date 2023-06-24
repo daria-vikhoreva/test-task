@@ -4,6 +4,8 @@
 			class="form"
 			@submit.prevent="createTask"
 		>
+      <div>Count: {{ count }}</div>
+      <button @click="increment">Increment</button>
 			<UiInput
 				class="form__input"
 				placeholder="Заголовок задачи"
@@ -28,9 +30,11 @@
 import { randomNumberExclude } from '../helpers/random';
 import UiInput from './UI/UiInput.vue';
 import { mapGetters, mapActions } from 'vuex';
+import useCounter from '../composables/counter.js'
 
 export default {
 	name: 'CreateTaskForm',
+  mixins: [useCounter],
 	data() {
 		return {
 			titleValue: '',

@@ -7,6 +7,11 @@
 				<CreateTaskForm />
 			</div>
 
+      <div>
+        <div>Count: {{ count }}</div>
+        <button @click="increment">Increment</button>
+      </div>
+
 			<TasksList :cards="cards" />
 		</div>
 	</div>
@@ -17,9 +22,11 @@ import CreateTaskForm from '../components/CreateTaskForm.vue';
 import TasksList from '../components/TasksList.vue';
 
 import { mapGetters } from 'vuex';
+import useCounter from '../composables/counter.js'
 
 export default {
 	name: 'TasksView',
+  mixins: [useCounter],
 	components: {
 		CreateTaskForm,
 		TasksList,
